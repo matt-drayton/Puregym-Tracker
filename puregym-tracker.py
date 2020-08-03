@@ -40,6 +40,9 @@ def get_data():
     count = int(results.text.split()[0])
     return count
 
+def pause():
+  time_.sleep(60*60)
+
 if __name__ == '__main__':
   toaster = ToastNotifier()
   while True:
@@ -48,7 +51,7 @@ if __name__ == '__main__':
       count = get_data()
       if count < ALERT_THRESHOLD:
         print("Currently "+str(count)+" people in the gym. This is below threshold.")
-        toaster.show_toast("Gym is available", "Currently "+str(count)+" people in the gym. This is below threshold.")
+        toaster.show_toast(title="Gym is available", msg="Currently "+str(count)+" people in the gym. This is below threshold. Click to mute for 1hr.", callback_on_click=pause)
       else:
         print("Currently "+str(count)+" people in the gym.")
       time_.sleep(POLLING_RATE)  

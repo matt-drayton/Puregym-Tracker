@@ -7,4 +7,4 @@ pywin32==228
 requests==2.24.0
 soupsieve==2.0.1
 urllib3==1.25.10
-win10toast==0.9
+-e git+https://github.com/Charnelx/Windows-10-Toast-Notifications.git#egg=win10toast
