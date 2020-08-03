@@ -15,6 +15,8 @@ Enter your Puregym credentials and chosen settings into `settings.py`
 
 Finally, run the program by entering `python puregym-tracker.py`.
 
+Note: You can also run the program using `pythonw puregym-tracker.py` which will run the program in the background. This means you will still get notifications but will not be able to see the program polling. 
+
 ## Settings
 The `settings.py` file is used to configure the program. Below is an explanation of each field:
 
