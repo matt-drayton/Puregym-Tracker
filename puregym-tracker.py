@@ -33,11 +33,11 @@ def get_data():
     s.post(API_LOGIN_URL, data=login_payload, headers=headers)
     page = s.get(URL)
     soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find("span", class_='heading heading--level3 secondary-color margin-bottom').text
+    results = soup.find("span", class_='heading heading--level3 secondary-color margin-bottom')
     if results is None:
       print("Error, credentials are incorrect")
       sys.exit()
-    count = int(results.split()[0])
+    count = int(results.text.split()[0])
     return count
 
 if __name__ == '__main__':
