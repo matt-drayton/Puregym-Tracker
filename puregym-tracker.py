@@ -1,8 +1,9 @@
-from settings import EMAIL, PIN, POLLING_RATE, ALERT_THRESHOLD
+from settings import EMAIL, PIN, POLLING_RATE, ALERT_THRESHOLD, OPEN_TIME, CLOSE_TIME
 import requests
 from bs4 import BeautifulSoup
-import time
+import time as time_
 from win10toast import ToastNotifier
+from datetime import datetime, time
 
 LOGIN_URL = "https://www.puregym.com/login/"
 API_LOGIN_URL = "https://www.puregym.com/api/members/login/"
@@ -12,6 +13,13 @@ URL = "https://www.puregym.com/members/"
 login_payload = {"associateAccount":"false",
                 "email":EMAIL,
                 "pin":PIN}
+
+def is_time_between(begin_time, end_time):
+  check_time = datetime.now().time()
+  if begin_time < end_time:
+    return check_time >= begin_time and check_time <= end_time
+  else: # crosses midnight
+    return check_time >= begin_time or check_time <= end_time
 
 def get_data():
   with requests.Session() as s:
@@ -32,11 +40,12 @@ def get_data():
 if __name__ == '__main__':
   toaster = ToastNotifier()
   while True:
-    print("Polling")
-    count = get_data()
-    if count < ALERT_THRESHOLD:
-      print("Currently "+str(count+" people in the gym. This is below threshold."))
-      toaster.show_toast("Currently "+count+" people in the gym. This is below threshold.")
-    else:
-      print("Currently "+str(count)+" people in the gym.")
-    time.sleep(POLLING_RATE)  
+    if is_time_between(time(OPEN_TIME, 0), time(CLOSE_TIME, 0)):
+      print("Polling")
+      count = get_data()
+      if count < ALERT_THRESHOLD:
+        print("Currently "+str(count+" people in the gym. This is below threshold."))
+        toaster.show_toast("Currently "+count+" people in the gym. This is below threshold.")
+      else:
+        print("Currently "+str(count)+" people in the gym.")
+      time_.sleep(POLLING_RATE)  
