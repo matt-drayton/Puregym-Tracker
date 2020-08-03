@@ -47,8 +47,8 @@ if __name__ == '__main__':
       print("Polling")
       count = get_data()
       if count < ALERT_THRESHOLD:
-        print("Currently "+str(count+" people in the gym. This is below threshold."))
-        toaster.show_toast("Currently "+count+" people in the gym. This is below threshold.")
+        print("Currently "+str(count)+" people in the gym. This is below threshold.")
+        toaster.show_toast("Gym is available", "Currently "+str(count)+" people in the gym. This is below threshold.")
       else:
         print("Currently "+str(count)+" people in the gym.")
       time_.sleep(POLLING_RATE)  
