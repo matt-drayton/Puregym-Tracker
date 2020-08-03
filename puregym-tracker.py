@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import time as time_
 from win10toast import ToastNotifier
 from datetime import datetime, time
+import sys
 
 LOGIN_URL = "https://www.puregym.com/login/"
 API_LOGIN_URL = "https://www.puregym.com/api/members/login/"
@@ -33,7 +34,9 @@ def get_data():
     page = s.get(URL)
     soup = BeautifulSoup(page.content, 'html.parser')
     results = soup.find("span", class_='heading heading--level3 secondary-color margin-bottom').text
-
+    if results is None:
+      print("Error, credentials are incorrect")
+      sys.exit()
     count = int(results.split()[0])
     return count
 
