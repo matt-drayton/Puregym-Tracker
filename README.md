@@ -1,4 +1,4 @@
-# Puregym Tracker
+# Puregym Tracker - OUT OF DATE
 ## Introduction 
 This is a tool to monitor activity levels at a chosen home gym. It will alert the user when the number of people in the gym is below a certain threshold. 
 ## Installation
